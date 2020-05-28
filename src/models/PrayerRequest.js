@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 
-const prayerRequestSchema = new Schema(
+const prayerRequestSchema = new mongoose.Schema(
   {
     author: {
       type: String,

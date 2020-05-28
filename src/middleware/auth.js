@@ -1,19 +1,15 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const { promisify } = require('util')
 
 const auth = async (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '')
-  const data = jwt.verify(token, process.env.JWT_KEY)
   try {
-    const user = await User.findOne({ _id: data._id, 'tokens.token': token })
-    if (!user) {
-      throw new Error()
-    }
-    req.user = user
-    req.token = token
+    await promisify(jwt.verify)(token, process.env.JWT_KEY)
+
     next()
-  } catch (error) {
-    res.status(401).send({ error: 'Not authorized to access this resource' })
+  } catch (err) {
+    return res.sendStatus(401).send(err)
   }
 }
 module.exports = auth
