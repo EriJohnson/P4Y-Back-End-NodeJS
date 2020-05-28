@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
 
     next()
   } catch (err) {
-    return res.sendStatus(401).send(err)
+    return res.status(401).send(err)
   }
 }
 module.exports = auth
