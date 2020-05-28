@@ -7,7 +7,7 @@ require('./db/db')
 const app = express()
 
 app.use(express.json())
-app.use(cors('Access-Control-Allow-Origin', process.env.CLIENT_URL))
+app.use(cors({ origin: process.env.CLIENT_URL }))
 app.use(PrayerRequestRouter, userRouter)
 
 const port = process.env.PORT || 8080
